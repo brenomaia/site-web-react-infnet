@@ -1,0 +1,17 @@
+.alert {
+    padding: 5px;
+    margin: 5px 0;
+    background-color: black;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+  }
+
+.alert-close {
+    background: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
