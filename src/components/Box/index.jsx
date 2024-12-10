@@ -1,11 +1,7 @@
-import "./box.css";
+// import "./box.css";
 
-const Box = ({ children, padding, margin, bgColor, borderRadius, ...props }) => {
+const Box = ({ children, ...props }) => {
   const style = {
-    padding,
-    margin,
-    backgroundColor: bgColor,
-    borderRadius,
     ...props.style, // Allow additional inline styles to be passed
   };
 

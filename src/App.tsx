@@ -1,12 +1,11 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './App.scss'
 import Index from "./routes"
+import AppProvider from "./Context.jsx"
 
 function App() {
   return (
-    <Index/>
+    <AppProvider>
+      <Index/>
+    </AppProvider>
   )
 }
 

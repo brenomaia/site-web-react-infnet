@@ -1,10 +1,10 @@
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-const DateTimePickerComponent = () => {
+const DateTimePickerComponent = ({ props }) => {
     return (
         <LocalizationProvider adapter={AdapterDayjs} dateAdapter={AdapterDayjs}>
-            <DateTimePicker />
+            <DateTimePicker {...props} />
         </LocalizationProvider>
     )
 }

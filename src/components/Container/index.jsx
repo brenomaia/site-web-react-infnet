@@ -1,8 +1,8 @@
 import "./container.css";
 
-const Container = ({ children, className }) => {
+const Container = ({ children, className, ...props }) => {
   return (
-    <div className={className}>
+    <div className={className} style={props.style}>
         {children}
     </div>);
 };

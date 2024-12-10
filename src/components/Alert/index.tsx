@@ -1,8 +1,8 @@
 import "./alert.css";
 
 interface AlertProps {
-  onClose?: () => void; // Optional callback for closing the alert
-  message: string;      // The message to display in the alert
+  onClose?: () => void;
+  message: string;
 }
 
 const Alert: React.FC<AlertProps> = ({ onClose, message }) => {
