@@ -16,7 +16,8 @@ const router = createBrowserRouter(
                 <Route index element={<Home />} loader={() => handleVerificationProtected()}></Route>
                 <Route path="/settings" element={<Settings />} loader={() => handleVerificationProtected()}></Route>
                 <Route path="/dashboard" element={<Dashboard />} loader={() => handleVerificationProtected()}></Route>
-                <Route path="/form" element={<Form />} loader={() => handleVerificationProtected()}></Route>
+                <Route path="/new/:type" element={<Form />} loader={() => handleVerificationProtected()}></Route>
+                <Route path="/:type/:id" element={<Form />} loader={() => handleVerificationProtected()}></Route>
             </Route>
 
             <Route path="/signin" element={<Signin />} loader={() => isAuthenticated()}></Route>

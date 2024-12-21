@@ -1,4 +1,5 @@
 import { redirect } from "react-router-dom";
+import data from "./auth.json";
 
 const isAuthenticated = () => {
     const token = localStorage.getItem("token");
@@ -14,21 +15,24 @@ const handleVerificationProtected = () => {
     return null
 };
 
-const signIn = async (username, password, supabase) => {
-    return await supabase.auth.signInWithPassword({email: username, password: password});
-} 
+const signIn = (username, password) => {
+    if ((username === data.user) & (password === data.password)) {
+        localStorage.setItem("token", "mockToken")
+        return { data: { session: "session", user: "breno" }, error: null }
+    } else {
+        return { error: { message: "Invalid login credentials" } }
+    }
+}
 
-const signUp = async (username, password, supabase) => {
-    return await supabase.auth.signUp({email: username, password: password});
-};
-
-const signOut = async (supabase, navigate) => {
-    localStorage.removeItem("session");
-    localStorage.removeItem("user");
-
-    supabase.auth.signOut();
+const signOut = (navigate) => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("session")
 
     return navigate("/signin");
+}
+
+const signUp = () => {
+    console.log("signed up. now use breno/12345 to login")
 }
 
 export {

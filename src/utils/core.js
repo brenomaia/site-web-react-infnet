@@ -1,27 +1,32 @@
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const adjustDateTimeForTimezone = (dateString) => {
-    if (!dateString) return new Date();
-    const dateUTC = dayjs.utc(dateString);
-    const dateInUTCMinus = dateUTC.tz('America/Sao_Paulo');
-    
-    return dayjs(dateInUTCMinus.format());
+  if (!dateString) return new Date();
+  const dateUTC = dayjs.utc(dateString);
+  const dateInUTCMinus = dateUTC.tz('America/Sao_Paulo');
+
+  return dayjs(dateInUTCMinus.format());
 };
 
 const getUser = () => {
-    const user = localStorage.getItem("session");
-    if (user) {
-        return JSON.parse(user).user
-    }
-    return null;
+  const user = localStorage.getItem("session");
+  if (user) {
+    return JSON.parse(user).user
+  }
+  return null;
 }
 
 const handleChange = (data, setData, value, field) => {
-    const d = data;
-    d[field].value = value
-    setData(() => ({
-        ...d
-    }));
+  const d = data;
+  d[field].value = value
+  setData(() => ({
+    ...d
+  }));
 }
 
 const calculateDuration = (startTimeStr, type) => {
@@ -40,8 +45,8 @@ const calculateDuration = (startTimeStr, type) => {
 }
 
 export {
-    handleChange,
-    adjustDateTimeForTimezone,
-    getUser,
-    calculateDuration
+  handleChange,
+  adjustDateTimeForTimezone,
+  getUser,
+  calculateDuration
 }

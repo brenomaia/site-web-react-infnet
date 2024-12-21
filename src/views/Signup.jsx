@@ -27,18 +27,18 @@ const Signup = () => {
 
     const validateUsername = (username) => {
         if (username === "") {
-            return {error: true, message: "Usuário não pode ser vazio."}
+            return { error: true, message: "Usuário não pode ser vazio." }
         }
-        return {error: false, message: null}
+        return { error: false, message: null }
     }
 
     const validatePassword = (password) => {
         if (password === "") {
-            return {error: true, message: "Usuário não pode ser vazio."}
+            return { error: true, message: "Usuário não pode ser vazio." }
         } else if (password.length < 6) {
-            return {error: true, message: "Senha precisa ter pelo menos 6 caracteres."}
+            return { error: true, message: "Senha precisa ter pelo menos 6 caracteres." }
         }
-        return {error: false, message: null}
+        return { error: false, message: null }
     }
 
     const verifySignup = async () => {
@@ -57,15 +57,15 @@ const Signup = () => {
         console.log(data.username.value);
         console.log(data.password.value);
 
-        let { data: response, error } = await signUp(data.username.value, data.password.value, supabaseClient);        
+        let { data: response, error } = await signUp(data.username.value, data.password.value, supabaseClient);
 
         if (error) {
             if (error.toString().indexOf("AuthApiError: User already registered") !== -1) {
                 showSnackMessage("Usuário registrado");
             } else {
                 showSnackMessage(error.toString());
-            } 
-        }else {
+            }
+        } else {
             showSnackMessage("Usuário criado com sucesso!");
             navigate("/signin")
         }
@@ -92,17 +92,17 @@ const Signup = () => {
     return (
         <Box style={boxStyle}>
             <Container style={boxStyle}>
-                <TextFieldComponent 
-                style={textFieldStyle} 
-                placeholder="Usuário" 
-                onChange={(event) => handleChange(data, setData, event.target.value, "username")}
-                value={data.username.value}
+                <TextFieldComponent
+                    style={textFieldStyle}
+                    placeholder="Usuário"
+                    onChange={(event) => handleChange(data, setData, event.target.value, "username")}
+                    value={data.username.value}
                 />
-                <TextFieldComponent 
-                style={textFieldStyle} 
-                placeholder="Senha" 
-                onChange={(event) => handleChange(data, setData, event.target.value, "password")}
-                value={data.password.value}
+                <TextFieldComponent
+                    style={textFieldStyle}
+                    placeholder="Senha"
+                    onChange={(event) => handleChange(data, setData, event.target.value, "password")}
+                    value={data.password.value}
                 />
                 <Button variant="contained" style={buttonStyle} onClick={verifySignup}>Cadastrar</Button>
             </Container>

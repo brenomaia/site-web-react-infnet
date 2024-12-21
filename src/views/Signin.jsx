@@ -11,7 +11,7 @@ import { handleChange } from "../utils/core";
 
 const Signin = () => {
     const navigate = useNavigate();
-    const { supabaseClient, showSnackMessage } = useAppContext();
+    const { showSnackMessage } = useAppContext();
 
     const [data, setData] = useState({
         username: {
@@ -24,8 +24,8 @@ const Signin = () => {
         },
     })
 
-    const verifyLogin = async () => {
-        let { data: response, error } = await signIn(data.username.value, data.password.value, supabaseClient);
+    const verifyLogin = () => {
+        let { data: response, error } = signIn(data.username.value, data.password.value);
 
         if (error && error.message === "Invalid login credentials") {
             showSnackMessage("Usuário ou senha errados.");
@@ -38,6 +38,7 @@ const Signin = () => {
 
     const boxStyle = {
         display: "block",
+        textAlign: "center"
     }
 
     const textFieldStyle = {

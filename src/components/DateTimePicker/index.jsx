@@ -1,10 +1,15 @@
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { ptBR } from '@mui/x-date-pickers/locales';
 
-const DateTimePickerComponent = ({ props }) => {
+
+const DateTimePickerComponent = ({ ...props }) => {
     return (
-        <LocalizationProvider adapter={AdapterDayjs} dateAdapter={AdapterDayjs}>
-            <DateTimePicker {...props} />
+        <LocalizationProvider dateAdapter={AdapterDayjs} localeText={ptBR.components.MuiLocalizationProvider.defaultProps.localeText}>
+            <DemoContainer components={['DateTimePicker']}>
+                <DateTimePicker {...props} />
+            </DemoContainer>
         </LocalizationProvider>
     )
 }

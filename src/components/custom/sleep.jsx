@@ -1,17 +1,21 @@
 import DateTimePicker from "../DateTimePicker";
 import Container from "../Container";
 import TextField from "../TextField";
-import { Select, MenuItem, InputLabel } from "@mui/material";
 import { useState } from "react";
+import { useAppContext } from "../../Context";
+import { adjustDateTimeForTimezone } from "../../utils/core"
 
-const SleepForm = ({ }) => {
-    const [diaperState, setDiaperState] = useState('');
+const SleepForm = ({ receivedData, onChange }) => {
+    const { translate } = useAppContext();
+    const [sleepBegin, setSleepBegin] = useState(receivedData ? receivedData.sleepBegin : "");
+    const [sleepOver, setSleepOver] = useState(receivedData ? receivedData.sleepOver : "");
+    const [observations, setObservations] = useState(receivedData ? receivedData.observations : "");
+    const [data, setData] = useState(receivedData || {});
 
     const styles = {
         mainContainer: {
             display: "block",
-            margin: "10px",
-            // padding: "10px"
+            margin: "10px"
         },
         dateTimePicker: {
             display: "block"
@@ -28,28 +32,65 @@ const SleepForm = ({ }) => {
         }
     }
 
-    const onChangeDiaperState = (newState) => {
-        setDiaperState(newState);
+    const onChangeSleepBegin = (newSleepBegin) => {
+        setSleepBegin(newSleepBegin);
+
+        const newData = {
+            sleepBegin: newSleepBegin,
+            sleepOver: data.sleepOver,
+            observations: data.observations
+        }
+
+        setData(newData);
+        onChange(newData);
     }
+
+    const onChangeSleepOver = (newSleepOver) => {
+        setSleepOver(newSleepOver);
+
+        const newData = {
+            sleepBegin: data.sleepBegin,
+            sleepOver: newSleepOver,
+            observations: data.observations
+        };
+
+        setData(newData);
+        onChange(newData);
+    };
+
+    const onChangeObservations = (newObservations) => {
+        setObservations(newObservations);
+
+        const newData = {
+            sleepBegin: data.sleepBegin,
+            sleepOver: data.sleepOver,
+            observations: newObservations
+        };
+
+        setData(newData);
+        onChange(newData);
+    };
 
     return (
         <Container style={styles.mainContainer}>
-            {/* <DateTimePicker style={styles.dateTimePicker} fullWidth label="Início da soneca" />
-            <DateTimePicker style={styles.dateTimePicker} fullWidth label="Fim da soneca" /> */}
+            <DateTimePicker
+                value={data?.sleepBegin ? adjustDateTimeForTimezone(data?.sleepBegin) : null}
+                style={styles.dateTimePicker}
+                fullWidth label={translate('sleep-begin')}
+                onChange={(value) => onChangeSleepBegin(value.toString())} />
+            <DateTimePicker
+                value={data?.sleepOver ? adjustDateTimeForTimezone(data?.sleepOver) : null}
+                style={styles.dateTimePicker}
+                fullWidth
+                label={translate('sleep-over')}
+                onChange={(value) => onChangeSleepOver(value.toString())} />
             <TextField
-                value={diaperState}
-                onChange={(e) => setValue(e.target.value)}
-                select // tell TextField to render select
-                label="Label"
-            >
-                <MenuItem key={1} value="test">
-                    Test 1
-                </MenuItem>
-                <MenuItem key={2} value="test2">
-                    Test 2
-                </MenuItem>
-            </TextField>
-            <TextField multiline fullWidth sx={styles.textField} placeholder="Observações" />
+                multiline
+                fullWidth
+                sx={styles.textField}
+                placeholder={translate('observations')}
+                value={data?.observations ? data.observations : ""}
+                onChange={(event) => onChangeObservations(event.target.value)} />
         </Container>
     )
 }

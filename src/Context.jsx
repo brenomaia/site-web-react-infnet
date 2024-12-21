@@ -1,12 +1,8 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { createClient } from "@supabase/supabase-js";
 import { Snackbar } from "@mui/material";
 
 const AppCtx = createContext(null);
-
-console.log(import.meta.env.VITE_SUPABASE_URL);
-const supabaseClient = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY);
 
 const AppProvider = ({ children }) => {
     const { t: translate, i18n } = useTranslation();
@@ -48,8 +44,7 @@ const AppProvider = ({ children }) => {
         changeLanguage,
         showSnackMessage,
         showAlertMessage,
-        translate,
-        supabaseClient
+        translate
     };
 
     useEffect(() => {
@@ -68,7 +63,7 @@ const AppProvider = ({ children }) => {
             <AppCtx.Provider value={sharedState}>
                 {children}
             </AppCtx.Provider>
-            <Snackbar onClose={handleClose} open={snackOpen} message={snackMessage} autoHideDuration={timeoutDuration}/>
+            <Snackbar onClose={handleClose} open={snackOpen} message={snackMessage} autoHideDuration={timeoutDuration} />
             {/* {
                 alertMessage ? 
                 <Grid container={true} sx={{
@@ -91,9 +86,9 @@ const AppProvider = ({ children }) => {
 export const useAppContext = () => {
     const context = useContext(AppCtx);
     if (context === null) {
-      throw new Error("useAppContext must be used within an AppProvider");
+        throw new Error("useAppContext must be used within an AppProvider");
     }
     return context;
-  };
+};
 
 export default AppProvider;
